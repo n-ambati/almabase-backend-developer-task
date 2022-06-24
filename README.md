@@ -8,9 +8,12 @@
 Note: Use `python3` if `python` points to python2
 * Activate the virtual environment.
 On MacOSX / Linux
+
 `$ source venv/bin/activate`
 On Windows
+
 `$ venv\Scripts\activate`
 * Install the requirements.
+
 `pip install -r requirements.txt`
 * Execute `main.py`.
