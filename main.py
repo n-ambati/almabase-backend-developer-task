@@ -1,8 +1,8 @@
 import json
-from json.decoder import JSONDecodeError
-from fuzzywuzzy import fuzz
 import multiprocessing
+from json.decoder import JSONDecodeError
 from multiprocessing import Process
+from fuzzywuzzy import fuzz
 
 
 def is_same(profile1: dict, profile2: dict, field: str) -> int:
@@ -105,27 +105,35 @@ def find_result(profiles: list, fields: list):
 
 
 def main():
-    profile1 = {
-        'id': 1,
-        'email': 'knowkanhai@gmail.com',
-        'first_name': 'Kanhai',
-        'last_name': 'Shah',
-        'class_year': None,
-        'date_of_birth': None
-    }
-    profile2 = {
-        'id': 2,
-        'email': 'knowkanhai+donotcompare@gmail.com',
-        'first_name': 'Kanhai1',
-        'last_name': 'Shah',
-        'class_year': 2012,
-        'date_of_birth': '1990-10-11'
-    }
+    # profile1 = {
+    #     'id': 1,
+    #     'email': 'knowkanhai@gmail.com',
+    #     'first_name': 'Kanhai',
+    #     'last_name': 'Shah',
+    #     'class_year': None,
+    #     'date_of_birth': None
+    # }
+    # profile2 = {
+    #     'id': 2,
+    #     'email': 'knowkanhai+donotcompare@gmail.com',
+    #     'first_name': 'Kanhai1',
+    #     'last_name': 'Shah',
+    #     'class_year': 2012,
+    #     'date_of_birth': '1990-10-11'
+    # }
 
-    profiles = [profile1, profile2]
-    fields = ['first_name', 'last_name']
+    # profiles = [profile1, profile2]
+    # fields = ['first_name', 'last_name']
 
-    find_result(profiles, fields)
+    with open('data.json', 'r') as f:
+        try:
+            data = json.load(f)
+            profiles = data['profiles']
+            fields = data['fields']
+            find_result(profiles, fields)
+        except JSONDecodeError:
+            print('Invalid Input!')
+
 
 
 if __name__ == '__main__':

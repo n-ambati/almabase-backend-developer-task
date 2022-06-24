@@ -1,0 +1,21 @@
+{
+    "profiles": [
+        {
+            "id": 1,
+            "email": "knowkanhai@gmail.com",
+            "first_name": "Kanhai",
+            "last_name": "Shah",
+            "class_year": null,
+            "date_of_birth": null
+        },
+        {
+            "id": 2,
+            "email": "knowkanhai+donotcompare@gmail.com",
+            "first_name": "Kanhai1",
+            "last_name": "Shah",
+            "class_year": 2012,
+            "date_of_birth": "1990-10-11"
+        }
+    ],
+    "fields": ["first_name", "last_name"]
+}
