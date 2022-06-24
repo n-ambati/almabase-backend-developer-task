@@ -1,7 +1,7 @@
 import json
 from json.decoder import JSONDecodeError
 from fuzzywuzzy import fuzz
-from pprint import pprint
+import multiprocessing
 from multiprocessing import Process
 
 
@@ -13,7 +13,7 @@ def is_same(profile1: dict, profile2: dict, field: str) -> int:
     return 0
 
 
-def compute_similarity_score(profile1: dict, profile2: dict, fields: list) -> tuple:
+def compute_similarity_score(profile1: dict, profile2: dict, fields: list, result: list) -> tuple:
     total_match_score = 0   # Initialise total match score
 
     first_name_score = 0
@@ -72,43 +72,36 @@ def compute_similarity_score(profile1: dict, profile2: dict, fields: list) -> tu
     )
     ignored_attributes.remove('id')
 
-    return {
+    result.append({
         'profiles': [f'profile{profile1["id"]}', f'profile{profile2["id"]}'],
         'total_match_score': total_match_score,
         'matching_attributes': matching_attributes if len(matching_attributes) > 0 else None,
         'non_matching_attributes': non_matching_attributes if len(non_matching_attributes) > 0 else None,
         'ignored_attributes': ignored_attributes if len(ignored_attributes) > 0 else None
-    }
+    })
 
 
 def save(result):
-    with open('duplicates.json', 'r') as f:
-        try:
-            data = json.loads(f.read())
-        except JSONDecodeError:
-            data = None
-
-    if not data:
-        data = {'duplicates': []}
-
-    with open('duplicates.json', 'w') as f:
-        data['duplicates'].append(result)
+    with open('result.json', 'w') as f:
+        data = {'result': list(result)}
         json.dump(data, f)
 
 
-def find_duplicates(profiles: list, fields: list):
+def find_result(profiles: list, fields: list):
     processes = []
+    manager = multiprocessing.Manager()
+    result = manager.list()
     for i in range(len(profiles) - 1):
         for j in range(i + 1, len(profiles)):
-            p = Process(target=compute_similarity_score, args=(profiles[i], profiles[j], fields))
+            p = Process(target=compute_similarity_score, args=(profiles[i], profiles[j], fields, result))
             p.start()
             processes.append(p)
 
     for process in processes:
-        result = p.join()
-        if result['total_match_score'] > 1:
-            save(result)
-        pprint(result)
+        process.join()
+
+    if len(result) > 0:
+        save(result)
 
 
 def main():
@@ -132,7 +125,7 @@ def main():
     profiles = [profile1, profile2]
     fields = ['first_name', 'last_name']
 
-    find_duplicates(profiles, fields)
+    find_result(profiles, fields)
 
 
 if __name__ == '__main__':
