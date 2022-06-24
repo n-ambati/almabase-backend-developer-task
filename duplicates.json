@@ -1,0 +1,24 @@
+{
+    "duplicates": [
+        {
+            "profiles": [
+                "profile1",
+                "profile2"
+            ],
+            "total_match_score": 3,
+            "matching_attributes": [
+                "email",
+                "last_name",
+                "class_year",
+                "date_of_birth"
+            ],
+            "non_matching_attributes": [
+                "email",
+                "first_name",
+                "first_name",
+                "last_name"
+            ],
+            "ignored_attributes": null
+        }
+    ]
+}
