@@ -4,7 +4,7 @@
 * Download or clone the repository.
 * Make sure python3.7 or greater is installed.
 * Create a virtual environment.
-`$ python -m venv venv`
+```$ python -m venv venv```
 Note: Use `python3` if `python` points to python2
 * Activate the virtual environment.
 ```
@@ -15,6 +15,5 @@ $ source venv/bin/activate
 $ venv\Scripts\activate
 ```
 * Install the requirements.
-
-`pip install -r requirements.txt`
+```pip install -r requirements.txt```
 * Execute `main.py`.
