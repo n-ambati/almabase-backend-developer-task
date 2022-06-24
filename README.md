@@ -13,6 +13,57 @@
 - **data.json** acts as the input data.
 - **result.json** acts as the output data from the script.
 
+### data.json
+At higher level, these file contains two fields: `profiles` and `fields`. In `profiles`, we pass the array of all the profiles that needs to be scanned for duplicates and in `fields`, we pass the attributes or fields over which the profiles needs to compared on.
+```json
+{
+    "profiles": [],
+    "fields": []
+}
+```
+
+Each profile is again an object with the attributes as keys and the attribute values as the values.
+```json
+{
+    "id": 1,
+    "email": "knowkanhai@gmail.com",
+    "first_name": "Kanhai",
+    "last_name": "Shah",
+    "class_year": null,
+    "date_of_birth": null
+    ...
+}
+```
+
+### result.json
+The `result.json` contains only one field `result` which is an array of objects. Each object contains the `profile pair`, `total_matching_score`, `matching_attributres`, `non_matching_attributes`, and `ignored_attributes`
+```json
+{
+    "result": [
+        {
+            "profiles": [
+                "profile1",
+                "profile2"
+            ],
+            "total_match_score": 1,
+            "matching_attributes": [
+                "first_name",
+                "last_name"
+                ...
+            ],
+            "non_matching_attributes": null,
+            "ignored_attributes": [
+                "email",
+                "class_year",
+                "date_of_birth"
+                ...
+            ]
+        },
+        ...
+    ]
+}
+```
+
 ## Steps to execute
 * Download or clone the repository.
 * Make sure python3.7 or greater is installed.
