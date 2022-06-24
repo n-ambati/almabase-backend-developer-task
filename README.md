@@ -1,5 +1,12 @@
 # Almabase Backend Developer Task - Find Duplicate Profiles
 
+## Folder Structure
+- **utils.py** contains functions to interact with the json files.
+- **duplicate_finder.py** contains the actual logic to calculate similarity score between two profiles.
+- **main.py** is a wrapper module that streamlines the process flow.
+- **data.json** acts as the input data.
+- **result.json** acts as the output data from the script.
+
 ## Steps to execute
 * Download or clone the repository.
 * Make sure python3.7 or greater is installed.
