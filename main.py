@@ -1,8 +1,10 @@
 import json
 import multiprocessing
-from json.decoder import JSONDecodeError
+
 from multiprocessing import Process
 from fuzzywuzzy import fuzz
+
+import utilities
 
 
 def is_same(profile1: dict, profile2: dict, field: str) -> int:
@@ -81,12 +83,6 @@ def compute_similarity_score(profile1: dict, profile2: dict, fields: list, resul
     })
 
 
-def save(result):
-    with open('result.json', 'w') as f:
-        data = {'result': list(result)}
-        json.dump(data, f)
-
-
 def find_result(profiles: list, fields: list):
     processes = []
     manager = multiprocessing.Manager()
@@ -101,39 +97,19 @@ def find_result(profiles: list, fields: list):
         process.join()
 
     if len(result) > 0:
-        save(result)
+        utilities.save(result)
 
 
 def main():
-    # profile1 = {
-    #     'id': 1,
-    #     'email': 'knowkanhai@gmail.com',
-    #     'first_name': 'Kanhai',
-    #     'last_name': 'Shah',
-    #     'class_year': None,
-    #     'date_of_birth': None
-    # }
-    # profile2 = {
-    #     'id': 2,
-    #     'email': 'knowkanhai+donotcompare@gmail.com',
-    #     'first_name': 'Kanhai1',
-    #     'last_name': 'Shah',
-    #     'class_year': 2012,
-    #     'date_of_birth': '1990-10-11'
-    # }
+    data = utilities.read_input()
 
-    # profiles = [profile1, profile2]
-    # fields = ['first_name', 'last_name']
+    if data is None:
+        print('Invalid Input!')
+        return
 
-    with open('data.json', 'r') as f:
-        try:
-            data = json.load(f)
-            profiles = data['profiles']
-            fields = data['fields']
-            find_result(profiles, fields)
-        except JSONDecodeError:
-            print('Invalid Input!')
-
+    profiles = data['profiles']
+    fields = data['fields']
+    find_result(profiles, fields)
 
 
 if __name__ == '__main__':

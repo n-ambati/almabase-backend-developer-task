@@ -1,1 +1,1 @@
-{"result": [{"profiles": ["profile1", "profile2"], "total_match_score": 1, "matching_attributes": ["first_name", "last_name"], "non_matching_attributes": null, "ignored_attributes": ["email", "class_year", "date_of_birth"]}]}
+{"result": [{"profiles": ["profile1", "profile2"], "total_match_score": 1, "matching_attributes": ["first_name", "last_name"], "non_matching_attributes": null, "ignored_attributes": ["email", "date_of_birth", "class_year"]}]}
